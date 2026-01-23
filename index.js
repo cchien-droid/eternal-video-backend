@@ -1,20 +1,18 @@
+import express from "express";
 import cors from "cors";
 
-app.use(cors());
-import express from "express";
-const app = express();
-app.use(express.json());
+const app = express();    // 1️⃣ define app first
+app.use(cors());           // 2️⃣ now we can use CORS
+app.use(express.json());   // parse JSON body
 
-// Test endpoint
-app.get("/", (req, res) => {
-  res.send("Eternal backend is alive 🌿");
-});
-
-// Video generation endpoint placeholder
 app.post("/generate-video", async (req, res) => {
-  // Replace this with Luma/Ray API call later
-  res.send({ videoUrl: "https://example.com/fake-video.mp4" });
+  const { images, finalMessage } = req.body;
+  console.log("Received images:", images.length, "Message:", finalMessage);
+
+  // TEMP: mock video
+  const videoUrl = "https://www.w3schools.com/html/mov_bbb.mp4"; 
+  res.json({ videoUrl });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
